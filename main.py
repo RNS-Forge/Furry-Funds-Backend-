@@ -30,10 +30,19 @@ app = FastAPI(
 )
 
 # Add CORS middleware
+from urllib.parse import urlparse
+
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 allowed_origins = [frontend_url, "http://localhost:5173", "http://localhost:5174"]
+try:
+    parsed = urlparse(frontend_url)
+    if parsed.scheme and parsed.netloc:
+        allowed_origins.append(f"{parsed.scheme}://{parsed.netloc}")
+except Exception:
+    pass
+
 if "," in frontend_url:
-    allowed_origins = [o.strip() for o in frontend_url.split(",")] + ["http://localhost:5173", "http://localhost:5174"]
+    allowed_origins.extend([o.strip() for o in frontend_url.split(",")])
 
 app.add_middleware(
     CORSMiddleware,

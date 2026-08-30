@@ -15,5 +15,5 @@ COPY . .
 # Expose the default port
 EXPOSE 10000
 
-# Start FastAPI application using uvicorn worker under gunicorn
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:10000"]
+# Start FastAPI application using uvicorn directly
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10000"]

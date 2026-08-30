@@ -1,0 +1,45 @@
+# Render configuration file
+# Reference: https://render.com/docs/yaml-spec
+
+services:
+  - type: web
+    name: furry-funds-backend
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free # or standard/etc.
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      - key: DEBUG
+        value: False
+      - key: MONGODB_URL
+        sync: false # Set in Render Dashboard
+      - key: DB_NAME
+        sync: false # Set in Render Dashboard
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true # Generates a secure random key automatically
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      # Email configurations can be specified/synced here as well
+      - key: MANAGER_EMAIL
+        sync: false
+      - key: GOOGLE_CALENDAR_ID
+        sync: false
+      - key: SMTP_SERVER
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
